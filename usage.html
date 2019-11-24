@@ -1,0 +1,166 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Usage &#8212; unit_system  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API" href="api.html" />
+    <link rel="prev" title="Introduction" href="introduction.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">unit_system</span> <span class="k">import</span> <span class="n">Quantity</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mΩ</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mi">10</span><span class="o">**-</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;Ω&#39;</span><span class="p">)</span> <span class="c1"># same as Mathcad in that unit symbols are variables</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Rsense</span> <span class="o">=</span> <span class="mf">10.0</span><span class="o">*</span><span class="n">mΩ</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Rsense</span> <span class="c1"># repr same as Mathcad in the default result format</span>
+<span class="go">0.01 Ω</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Rsense</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;mΩ&#39;</span><span class="p">)</span> <span class="c1"># same as Mathcad in that you can change the scaling</span>
+<span class="go">10.0 mΩ</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Is</span> <span class="o">=</span> <span class="mi">10</span><span class="o">*</span><span class="n">A</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Is</span><span class="o">*</span><span class="n">Rsense</span>
+<span class="go">0.1 V</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dV</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;V&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dT</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;K&#39;</span><span class="p">)</span> <span class="c1"># temperature differences are expressed in kelvin</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tempco</span> <span class="o">=</span> <span class="n">dV</span><span class="o">/</span><span class="n">dT</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tempco</span>
+<span class="go">1.0 kg*m**2/(A*K*s**3) # same as Mathcad where result is in SI base units</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tempco</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;V/K&#39;</span><span class="p">)</span>
+<span class="go">1.0 V/K</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torque</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;N*m&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torque</span> <span class="c1"># same result as Mathcad</span>
+<span class="go">1.0 J</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torque</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;N*m&#39;</span><span class="p">)</span> <span class="c1"># an improvement over Mathematica and others that print 1.0 m*N</span>
+<span class="go">1.0 N*m</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Hz</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Hz&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">Hz</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;Hz&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span> <span class="mf">1.</span> <span class="mf">10.</span><span class="p">]</span> <span class="n">Hz</span>
+</pre></div>
+</div>
+<p>You can convert from non-SI unit into the SI base unit. It’s a one-way trip.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">unit_system</span> <span class="k">import</span> <span class="n">convert</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Ta</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="mi">72</span><span class="p">,</span> <span class="s1">&#39;°F&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Ta</span>
+<span class="go">295.37 K</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Ta</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;°C&#39;</span><span class="p">)</span>
+<span class="go">22.22 °C</span>
+</pre></div>
+</div>
+<div class="section" id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Ω is ALT+234</p></li>
+<li><p>µ is ALT+230</p></li>
+<li><p>° is ALT+248</p></li>
+<li><p>day has unit symbol d that conflicts with candela symbol cd and is not supported</p></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">unit_system</a></h1>
+
+
+
+<p class="blurb">SI unit system implementation</p>
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=l-johnston&repo=unit_system&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#notes">Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="introduction.html" title="previous chapter">Introduction</a></li>
+      <li>Next: <a href="api.html" title="next chapter">API</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Lee Johnston.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
