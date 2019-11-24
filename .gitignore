@@ -6,4 +6,5 @@ unit_system.egg-info/
 .coverage
 htmlcov/
 build/
+dist/
 doc/_build

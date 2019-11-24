@@ -1,4 +1,4 @@
-[![Build Status](https://dev.azure.com/l-johnston/unit_system/_apis/build/status/l-johnston.unit_system?branchName=master)](https://dev.azure.com/l-johnston/unit_system/_build/latest?definitionId=8&branchName=master) ![Code Coverage](https://img.shields.io/azure-devops/coverage/l-johnston/unit_system/8)
+[![Build Status](https://dev.azure.com/l-johnston/unit_system/_apis/build/status/l-johnston.unit_system?branchName=master)](https://dev.azure.com/l-johnston/unit_system/_build/latest?definitionId=8&branchName=master) ![Code Coverage](https://img.shields.io/azure-devops/coverage/l-johnston/unit_system/8) ![Version](https://img.shields.io/pypi/v/unit-system)
 # `unit_system`
 The unit_system package provides a way to do physical quantity math
 in Python that replicates Mathcad's unit system. The implementation

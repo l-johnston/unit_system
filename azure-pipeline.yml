@@ -170,7 +170,7 @@ jobs:
   - Test_linux
   - Test_windows
   - Update_Documentation
-  condition: and(eq(1, 2), succeeded(), eq(variables['Build.Reason'], 'IndividualCI'))
+  condition: and(succeeded(), eq(variables['Build.Reason'], 'IndividualCI'))
   variables:
     major: 1
     minor: 0
