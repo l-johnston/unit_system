@@ -1,0 +1,212 @@
+trigger:
+- master
+pr:
+- master
+
+jobs:
+- job: Code_QA
+  displayName: Code QA
+  strategy:
+    matrix:
+      Python37:
+        python.version: '3.7'
+  continueOnError: true
+  pool:
+    vmImage: 'ubuntu-latest'
+  timeoutInMinutes: 10
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '$(python.version)'
+    displayName: 'Use Python $(python.version)'
+
+  - script: |
+      python -m pip install --upgrade pip
+      pip install pylint black
+      pip install -e .
+    displayName: 'Install dependencies'
+
+  - script: |
+      mkdir $(System.DefaultWorkingDirectory)/code_qa
+      pylint --variable-rgx=[a-z_][a-z0-9_]{0,30}$ --argument-rgx=[a-z_][a-z0-9_]{0,30}$ --exit-zero nitdms > code_qa/pylint_report.txt
+    displayName: 'Run pylint'
+
+  - script: |
+      black --diff > code_qa/black_report.txt
+    displayName: 'Run black'
+
+  - publish: $(System.DefaultWorkingDirectory)/code_qa
+    artifact: Code_QA
+
+- job: Test_linux
+  displayName: Test on linux
+  strategy:
+    matrix:
+      Python37:
+        python.version: '3.7'
+  continueOnError: false
+  pool:
+    vmImage: 'ubuntu-latest'
+  timeoutInMinutes: 10
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '$(python.version)'
+    displayName: 'Use Python $(python.version)'
+
+  - script: |
+      python -m pip install --upgrade pip
+      pip install pytest pytest-cov
+      pip install -e .
+    displayName: 'Install dependencies'
+
+  - script: |
+      pytest tests/ --junitxml=junit/test-results.xml --cov=nitdms --cov-report=html --cov-report=xml
+    displayName: 'Run test suite'
+
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**/test-*.xml'
+      testRunTitle: 'Test results for Python $(python.version)'
+
+  - task: PublishCodeCoverageResults@1
+    inputs:
+      codeCoverageTool: 'Cobertura'
+      summaryFileLocation: '$(System.DefaultWorkingDirectory)/coverage.xml'
+      reportDirectory: '$(System.DefaultWorkingDirectory)/htmlcov'
+
+- job: Test_windows
+  displayName: Test on windows
+  strategy:
+    matrix:
+      Python37:
+        python.version: '3.7'
+  continueOnError: false
+  pool:
+    vmImage: 'windows-latest'
+  timeoutInMinutes: 10
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '$(python.version)'
+    displayName: 'Use Python $(python.version)'
+
+  - script: |
+      python -m pip install --upgrade pip
+      pip install pytest pytest-cov
+      pip install -e .
+    displayName: 'Install dependencies'
+
+  - script: |
+      pytest tests/ --junitxml=junit/test-results.xml --cov=nitdms --cov-report=html --cov-report=xml
+    displayName: 'Run test suite'
+
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFormat: 'JUnit'
+      testResultsFiles: '**/test-*.xml'
+      testRunTitle: 'Test results for Python $(python.version)'
+
+  - task: PublishCodeCoverageResults@1
+    inputs:
+      codeCoverageTool: 'Cobertura'
+      summaryFileLocation: '$(System.DefaultWorkingDirectory)/coverage.xml'
+      reportDirectory: '$(System.DefaultWorkingDirectory)/htmlcov'
+
+- job: Update_Documentation
+  displayName: Update Documentation
+  dependsOn:
+  - Test_linux
+  - Test_windows
+  condition: and(eq(1, 2), succeeded(), eq(variables['Build.Reason'], 'IndividualCI'))
+  strategy:
+    matrix:
+      Python37:
+        python.version: '3.7'
+  continueOnError: false
+  pool:
+    vmImage: 'ubuntu-latest'
+  timeoutInMinutes: 10
+  steps:
+  - checkout: self
+    persistCredentials: true
+  
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '$(python.version)'
+    displayName: 'Use Python $(python.version)'
+
+  - script: |
+      python -m pip install --upgrade pip
+      pip install --upgrade Sphinx
+      pip install -e .
+    displayName: 'Install dependencies'
+
+  - script: |
+      cd doc
+      mkdir _build
+      cd _build
+      mkdir html
+      cd html
+      git init
+      git config user.email "lee.johnston.100@gmail.com"
+      git config user.name "Lee Johnston"
+      git -c credential.helper='!f() { echo "username=token"; echo "password=$PAT"; };f' remote add github https://github.com/l-johnston/unit_system.git
+      git -c credential.helper='!f() { echo "username=token"; echo "password=$PAT"; };f' pull github gh-pages:master
+      cd ../..
+      make html
+      cd _build/html
+      git add .
+      git commit -m "build project documentation"
+      git -c credential.helper='!f() { echo "username=token"; echo "password=$PAT"; };f' push -f github master:gh-pages
+    env:
+      PAT: $(PAT)
+    displayName: 'Build and publish documentation'
+
+- job: Publish
+  displayName: Publish to PyPI
+  dependsOn:
+  - Test_linux
+  - Test_windows
+  - Update_Documentation
+  condition: and(eq(1, 2), succeeded(), eq(variables['Build.Reason'], 'IndividualCI'))
+  variables:
+    major: 1
+    minor: 0
+    micro: $[counter(variables['minor'], 0)]
+  pool:
+    vmImage: 'ubuntu-latest'
+  strategy:
+    matrix:
+      Python37:
+        python.version: '3.7'
+  timeoutInMinutes: 10
+  steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '$(python.version)'
+    displayName: 'Use Python $(python.version)'
+
+  - script: |
+      python -m pip install --upgrade pip
+      pip install twine wheel
+      pip install -e .
+    displayName: 'Install dependencies'
+  
+  - script: |
+      python unit_system/version.py $(major) $(minor) $(micro)
+    displayName: 'Update version number'
+
+  - script: |
+      python setup.py sdist bdist_wheel
+    displayName: 'Build the python distribution from source'
+
+  - task: TwineAuthenticate@1
+    displayName: 'Twine Authenticate'
+    inputs:
+      pythonUploadServiceConnection: ljohnston
+
+  - script: |
+      python -m twine upload -r unit_system --config-file $(PYPIRC_PATH) dist/*
+    displayName: 'Upload to PyPI'

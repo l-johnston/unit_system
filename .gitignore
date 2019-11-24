@@ -1,0 +1,9 @@
+.pytest_cache/
+__pycache__/
+.vscode/
+.venv/
+unit_system.egg-info/
+.coverage
+htmlcov/
+build/
+doc/_build
