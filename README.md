@@ -19,5 +19,13 @@ $ pip install unit_system
 1.0 Ω
 ```  
 
+You can load predefined units like the ones in Mathcad.
+
+```python
+>>> from unit_system.predefined_units import *
+>>> 1*mΩ * 1*A
+0.001 V
+```
+
 ## Documentation
 https://l-johnston.github.io/unit_system/
