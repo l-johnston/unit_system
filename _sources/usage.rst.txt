@@ -39,6 +39,12 @@ You can convert from non-SI unit into the SI base unit. It's a one-way trip.
 >>> Ta.to('°C')
 22.22 °C
 
+You can load predefined units like the ones in Mathcad.
+
+>>> from unit_system.predefined_units import *
+>>> 1*mΩ * 1*A
+0.001 V
+
 Notes
 -----
 - Ω is ALT+234
