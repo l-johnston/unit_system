@@ -34,7 +34,7 @@
             
   <div class="section" id="usage">
 <h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">unit_system</span> <span class="k">import</span> <span class="n">Quantity</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">unit_system</span> <span class="kn">import</span> <span class="n">Quantity</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mΩ</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mi">10</span><span class="o">**-</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;Ω&#39;</span><span class="p">)</span> <span class="c1"># same as Mathcad in that unit symbols are variables</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Rsense</span> <span class="o">=</span> <span class="mf">10.0</span><span class="o">*</span><span class="n">mΩ</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Rsense</span> <span class="c1"># repr same as Mathcad in the default result format</span>
@@ -65,7 +65,7 @@
 </pre></div>
 </div>
 <p>You can convert from non-SI unit into the SI base unit. It’s a one-way trip.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">unit_system</span> <span class="k">import</span> <span class="n">convert</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">unit_system</span> <span class="kn">import</span> <span class="n">convert</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Ta</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="mi">72</span><span class="p">,</span> <span class="s1">&#39;°F&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Ta</span>
 <span class="go">295.37 K</span>
@@ -74,7 +74,7 @@
 </pre></div>
 </div>
 <p>You can load predefined units like the ones in Mathcad.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">unit_system.predefined_units</span> <span class="k">import</span> <span class="o">*</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">unit_system.predefined_units</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span><span class="o">*</span><span class="n">mΩ</span> <span class="o">*</span> <span class="mi">1</span><span class="o">*</span><span class="n">A</span>
 <span class="go">0.001 V</span>
 </pre></div>
