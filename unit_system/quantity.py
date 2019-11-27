@@ -150,6 +150,15 @@ class Quantity(np.ndarray):
         quantity_str = value_str + f" {self.unit}"
         return quantity_str
 
+    def __format__(self, fmt=None):
+        if fmt == "":
+            return self.__repr__()
+        value = self.view(np.ndarray)
+        fmt_str = "{:" + fmt + "}"
+        value_str = np.array2string(value, formatter={"float_kind": fmt_str.format})
+        quantity_str = value_str + f" {self.unit}"
+        return quantity_str
+
     def __getitem__(self, index):
         if isinstance(index, Number) and index >= self.size:
             raise IndexError
