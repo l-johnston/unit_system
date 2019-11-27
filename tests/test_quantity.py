@@ -344,3 +344,9 @@ def test_ufuncout():
     np.multiply(a, 2.0, out=b)
     results = b == np.asarray([2.0, 4.0, 6.0])
     assert results.all()
+
+
+def test_format():
+    a = Quantity(1.1234, "m")
+    assert f"{a}" == "1.1234 m"
+    assert f"{a:.2f}" == "1.12 m"
