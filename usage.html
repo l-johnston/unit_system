@@ -34,49 +34,51 @@
             
   <div class="section" id="usage">
 <h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">unit_system</span> <span class="kn">import</span> <span class="n">Quantity</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">mΩ</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mi">10</span><span class="o">**-</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;Ω&#39;</span><span class="p">)</span> <span class="c1"># same as Mathcad in that unit symbols are variables</span>
+<p>The most common usage pattern, and especially for interactive sessions, is to import
+the predefined units:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">unit_system.predefined_units</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Rsense</span> <span class="o">=</span> <span class="mf">10.0</span><span class="o">*</span><span class="n">mΩ</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Rsense</span> <span class="c1"># repr same as Mathcad in the default result format</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Rsense</span>
 <span class="go">0.01 Ω</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Rsense</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;mΩ&#39;</span><span class="p">)</span> <span class="c1"># same as Mathcad in that you can change the scaling</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Rsense</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;mΩ&#39;</span><span class="p">)</span>
 <span class="go">10.0 mΩ</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Is</span> <span class="o">=</span> <span class="mi">10</span><span class="o">*</span><span class="n">A</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Is</span><span class="o">*</span><span class="n">Rsense</span>
-<span class="go">0.1 V</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dV</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;V&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dT</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;K&#39;</span><span class="p">)</span> <span class="c1"># temperature differences are expressed in kelvin</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tempco</span> <span class="o">=</span> <span class="n">dV</span><span class="o">/</span><span class="n">dT</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tempco</span>
-<span class="go">1.0 kg*m**2/(A*K*s**3) # same as Mathcad where result is in SI base units</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tempco</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;V/K&#39;</span><span class="p">)</span>
-<span class="go">1.0 V/K</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">torque</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;N*m&#39;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">torque</span> <span class="c1"># same result as Mathcad</span>
-<span class="go">1.0 J</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">torque</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;N*m&#39;</span><span class="p">)</span> <span class="c1"># an improvement over Mathematica and others that print 1.0 m*N</span>
-<span class="go">1.0 N*m</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Hz</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Hz&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">Hz</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;Hz&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span> <span class="mf">1.</span> <span class="mf">10.</span><span class="p">]</span> <span class="n">Hz</span>
 </pre></div>
 </div>
-<p>You can convert from non-SI unit into the SI base unit. It’s a one-way trip.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Is</span> <span class="o">=</span> <span class="mi">10</span><span class="o">*</span><span class="n">A</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Is</span><span class="o">*</span><span class="n">Rsense</span>
+<span class="go">0.1 V</span>
+</pre></div>
+</div>
+<p>Temperature in Celsius has to be entered using:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Ta</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mi">23</span><span class="p">,</span> <span class="s2">&quot;°C&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>since the ‘°’ symbol’s unicode value lies outside the acceptable range for Python
+variable names.</p>
+<p>Temperature differences are expressed in kelvin:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dV</span> <span class="o">=</span> <span class="mi">1</span><span class="o">*</span><span class="n">V</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dT</span> <span class="o">=</span> <span class="mi">1</span><span class="o">*</span><span class="n">K</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tempco</span> <span class="o">=</span> <span class="n">dV</span><span class="o">/</span><span class="n">dT</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tempco</span>
+<span class="go">1.0 kg*m**2/(A*K*s**3)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tempco</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;V/K&#39;</span><span class="p">)</span>
+<span class="go">1.0 V/K</span>
+</pre></div>
+</div>
+<p>Arrays can be created:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">Hz</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;Hz&quot;</span><span class="p">)</span>
+<span class="go">[ 1. 10.] Hz</span>
+</pre></div>
+</div>
+<p>You can convert from a non-SI unit into the SI equivalent, but it is a one-way trip.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">unit_system</span> <span class="kn">import</span> <span class="n">convert</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Ta</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="mi">72</span><span class="p">,</span> <span class="s1">&#39;°F&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Ta</span>
 <span class="go">295.37 K</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Ta</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s1">&#39;°C&#39;</span><span class="p">)</span>
 <span class="go">22.22 °C</span>
-</pre></div>
-</div>
-<p>You can load predefined units like the ones in Mathcad.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">unit_system.predefined_units</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="mi">1</span><span class="o">*</span><span class="n">mΩ</span> <span class="o">*</span> <span class="mi">1</span><span class="o">*</span><span class="n">A</span>
-<span class="go">0.001 V</span>
 </pre></div>
 </div>
 <div class="section" id="notes">

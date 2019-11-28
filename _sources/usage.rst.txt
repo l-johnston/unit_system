@@ -1,36 +1,45 @@
 Usage
 =====
 
->>> from unit_system import Quantity
->>> mΩ = Quantity(10**-3, 'Ω') # same as Mathcad in that unit symbols are variables
+The most common usage pattern, and especially for interactive sessions, is to import
+the predefined units:
+
+>>> from unit_system.predefined_units import *
 >>> Rsense = 10.0*mΩ
->>> Rsense # repr same as Mathcad in the default result format
+>>> Rsense
 0.01 Ω
->>> Rsense.to('mΩ') # same as Mathcad in that you can change the scaling
+>>> Rsense.to('mΩ')
 10.0 mΩ
->>> A = Quantity(1, 'A')
+
 >>> Is = 10*A
 >>> Is*Rsense
 0.1 V
->>> dV = Quantity(1, 'V')
->>> dT = Quantity(1, 'K') # temperature differences are expressed in kelvin
+
+Temperature in Celsius has to be entered using:
+
+>>> Ta = Quantity(23, "°C")
+
+since the '°' symbol's unicode value lies outside the acceptable range for Python
+variable names.
+
+Temperature differences are expressed in kelvin:
+
+>>> dV = 1*V
+>>> dT = 1*K
 >>> tempco = dV/dT
 >>> tempco
-1.0 kg*m**2/(A*K*s**3) # same as Mathcad where result is in SI base units
+1.0 kg*m**2/(A*K*s**3)
 >>> tempco.to('V/K')
 1.0 V/K
->>> torque = Quantity(1, 'N*m')
->>> torque # same result as Mathcad
-1.0 J
->>> torque.to('N*m') # an improvement over Mathematica and others that print 1.0 m*N
-1.0 N*m
+
+Arrays can be created:
+
 >>> import numpy as np
->>> Hz = Quantity(1, "Hz")
 >>> f = np.logspace(0, 1, 2)*Hz
 >>> f.to("Hz")
->>> [ 1. 10.] Hz
+[ 1. 10.] Hz
 
-You can convert from non-SI unit into the SI base unit. It's a one-way trip.
+You can convert from a non-SI unit into the SI equivalent, but it is a one-way trip.
 
 >>> from unit_system import convert
 >>> Ta = convert(72, '°F')
@@ -38,12 +47,6 @@ You can convert from non-SI unit into the SI base unit. It's a one-way trip.
 295.37 K
 >>> Ta.to('°C')
 22.22 °C
-
-You can load predefined units like the ones in Mathcad.
-
->>> from unit_system.predefined_units import *
->>> 1*mΩ * 1*A
-0.001 V
 
 Notes
 -----
