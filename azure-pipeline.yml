@@ -58,6 +58,7 @@ jobs:
       python -m pip install --upgrade pip
       pip install pytest pytest-cov
       pip install -e .
+      pip install matplotlib
     displayName: 'Install dependencies'
 
   - script: |
@@ -96,6 +97,7 @@ jobs:
       python -m pip install --upgrade pip
       pip install pytest pytest-cov
       pip install -e .
+      pip install matplotlib
     displayName: 'Install dependencies'
 
   - script: |
