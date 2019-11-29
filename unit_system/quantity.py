@@ -25,14 +25,14 @@ class Quantity(np.ndarray):
     1.0 s
     >>> f = Quantity([1, 2, 3], "Hz")
     >>> f
-    >>> [1. 2. 3.] Hz
+    [1. 2. 3.] Hz
     >>> import numpy as np
     >>> Hz = Quantity(1, "Hz")
     >>> f = np.logspace(0, 1, 3)*Hz
     >>> f
-    >>> [0. 3.162 10.] 1/s
+    [0. 3.162 10.] 1/s
     >>> f.to("Hz")
-    >>> [0. 3.162 10.] Hz
+    [0. 3.162 10.] Hz
 
     Args:
         value (float or array-like): numerical value(s) of the quantity
@@ -58,6 +58,7 @@ class Quantity(np.ndarray):
     def __array_finalize__(self, obj):
         self._unit = getattr(obj, "_unit", None)
         self._tounit = getattr(obj, "_tounit", "auto")
+        self._qsym = None
 
     # pylint: disable=super-init-not-called
     # pylint: disable=unused-argument
@@ -76,6 +77,15 @@ class Quantity(np.ndarray):
     def unit(self):
         """Return unit symbol expression of the quantity"""
         return self._unit
+
+    @property
+    def qsym(self):
+        """Return the quantity symbol"""
+        return self._qsym
+
+    @qsym.setter
+    def qsym(self, symbol):
+        self._qsym = symbol
 
     # pylint: disable=invalid-name
     # pylint complains about the two letter function name 'to'
