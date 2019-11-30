@@ -1,4 +1,4 @@
-"""Definition of Quantity as a subclass of numpy ndarray"""
+"""Definition of Quantity as a subclass of NumPy's ndarray"""
 from numbers import Number
 import numpy as np
 from sympy import factor
@@ -9,36 +9,31 @@ from unit_system.constants import TOUNITS, QUANTITY_ARITHMETIC, QUANTITY_COMPARI
 class Quantity(np.ndarray):
     """A physical quantity data type in the SI system
 
-    Usage replicates Mathcad's quantity math.
-    >>> from unit_system import Quantity
-    >>> F = Quantity(1, 'F')
-    >>> pF = 1e-12*F
-    >>> C1 = 1*pF
-    >>> C1
-    1e-12 F
-    >>> C1.to('pF')
-    1.0 pF
-    >>> Ω = Quantity(1, 'Ω') # Ω is ALT+234, same as Mathcad
-    >>> TΩ = 1e12*Ω
-    >>> R1 = 1*TΩ
-    >>> R1*C1
-    1.0 s
-    >>> f = Quantity([1, 2, 3], "Hz")
-    >>> f
-    [1. 2. 3.] Hz
-    >>> import numpy as np
-    >>> Hz = Quantity(1, "Hz")
-    >>> f = np.logspace(0, 1, 3)*Hz
-    >>> f
-    [0. 3.162 10.] 1/s
-    >>> f.to("Hz")
-    [0. 3.162 10.] Hz
-
-    Args:
+    Attributes:
         value (float or array-like): numerical value(s) of the quantity
-        unit (str): SI unit expression
+        unit (str): original SI unit expression
+        to_unit (str): coerce to given SI unit expression. Defaults to 'auto'
 
-    Returns a Quantity
+    Example:
+        >>> from unit_system import Quantity
+        >>> m = Quantity(1, "m")
+        >>> length = 1*m
+        >>> length
+        1.0 m
+        >>> 2*length
+        2.0 m
+        >>> lengths = [1, 2, 3]*m
+        >>> lengths
+        [1. 2. 3.] m
+        >>> lengths.sum()
+        6.0 m
+        >>> V = Quantity(1, "V")
+        >>> kV = 1e3*V
+        >>> potential = 10*kV
+        >>> potential
+        10000.0 V
+        >>> potential.to("kV")
+        10.0 kV
     """
 
     # can only define ndarray metadata attributes in __new__
@@ -70,17 +65,17 @@ class Quantity(np.ndarray):
 
     @property
     def value(self):
-        """Return the numerical value of the quantity"""
+        """ndarray: the numerical value(s) of the quantity"""
         return self.view(np.ndarray)
 
     @property
     def unit(self):
-        """Return unit symbol expression of the quantity"""
+        """str: the unit symbol expression of the quantity"""
         return self._unit
 
     @property
     def qsym(self):
-        """Return the quantity symbol"""
+        """symbol (str): the quantity symbol for use as a label"""
         return self._qsym
 
     @qsym.setter
@@ -92,8 +87,23 @@ class Quantity(np.ndarray):
     def to(self, unit="auto"):
         """Convert the Quantity into the desired SI unit
 
+        Conversion is performed in-place updating the to_unit attribute.
+
         Args:
-            unit (str): target SI unit
+            unit (str): target SI unit expression
+
+        Returns:
+            Quantity: self
+
+        Example:
+            >>> from unit_system import Quantity
+            >>> capacitance = Quantity(10e-12, "F")
+            >>> capacitance
+            1e-11 F
+            >>> capacitance.to("pF")
+            10.0 pF
+            >>> capacitance
+            10.0 pF
         """
         if self.unit == "1":
             value = self.view(np.ndarray)

@@ -1,4 +1,4 @@
-"""Convert from non-SI to SI unit"""
+"""Convert a non-SI quantity to its SI equivalent"""
 from unit_system import Quantity
 
 __all__ = ["convert"]
@@ -16,16 +16,21 @@ CONVERSION_TABLE = {
 
 
 def convert(value, unit):
-    """Convert the non-SI quantity into SI base unit(s)
+    """Convert the non-SI quantity into its SI equivalent
 
-    Parameters
-    ----------
-    value (float): numerical value
-    unit (str): non-SI unit symbol
+    The coversion factors are defined in NIST SP-811.
 
-    Returns
-    -------
-    A new Quantity object
+    Args:
+        value (float): numerical value
+        unit (str): non-SI unit symbol
+
+    Returns:
+        Quantity: converted value
+
+    Example:
+        >>> from unit_system import convert
+        >>> convert(1, 'ft')
+        0.3048 m
     """
     try:
         scale, bu = CONVERSION_TABLE[unit]
