@@ -44,6 +44,8 @@ Arrays are easy to generate as well and leverage NumPy's functionality:
 >>> perimeter
 18.1 m
 
+Comparison to Unyt
+------------------
 There are several other packages that enable physical quantity math in Python. The
 best one among these is `Unyt`_. Unyt takes a similar approach in subclassing ndarray and
 using Sympy to do the unit math. So, why not just use Unyt?
@@ -83,6 +85,9 @@ convert a non-SI quantity into its SI equivalent. For example:
 2.29728 m
 
 Here, the conversion is made explict and round trips are not allowed.
+
+Another benefit to ``unit_system`` is its integration with Matplotlib as
+described in :doc:`/usage`.
 
 .. _SI system: https://www.nist.gov/pml/special-publication-811
 .. _Jupyter: https://jupyter.org/

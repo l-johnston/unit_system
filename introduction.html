@@ -76,6 +76,8 @@ like in Mathcad:</p>
 <span class="go">18.1 m</span>
 </pre></div>
 </div>
+<div class="section" id="comparison-to-unyt">
+<h2>Comparison to Unyt<a class="headerlink" href="#comparison-to-unyt" title="Permalink to this headline">¶</a></h2>
 <p>There are several other packages that enable physical quantity math in Python. The
 best one among these is <a class="reference external" href="https://github.com/yt-project/unyt">Unyt</a>. Unyt takes a similar approach in subclassing ndarray and
 using Sympy to do the unit math. So, why not just use Unyt?</p>
@@ -113,6 +115,9 @@ convert a non-SI quantity into its SI equivalent. For example:</p>
 </pre></div>
 </div>
 <p>Here, the conversion is made explict and round trips are not allowed.</p>
+<p>Another benefit to <code class="docutils literal notranslate"><span class="pre">unit_system</span></code> is its integration with Matplotlib as
+described in <a class="reference internal" href="usage.html"><span class="doc">Usage</span></a>.</p>
+</div>
 </div>
 
 
@@ -142,7 +147,10 @@ convert a non-SI quantity into its SI equivalent. For example:</p>
 
 <h3>Navigation</h3>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#comparison-to-unyt">Comparison to Unyt</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
 </ul>

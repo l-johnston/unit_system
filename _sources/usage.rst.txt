@@ -52,7 +52,7 @@ You can convert from a non-SI unit into the SI equivalent, but it is a one-way t
 
 Matplotlib
 ----------
-Matplotlib offers a units interface where a custom class, such as Quantity, can be
+`Matplotlib`_ offers a units interface where a custom class, such as Quantity, can be
 registered allowing matplotlib to perform operations as defined by that custom class.
 Normally, the default axis labels in matplotlib are set to ``None``, but
 in the case of Quantity, the default axis labels are based on the unit. For example:
@@ -68,7 +68,7 @@ in the case of Quantity, the default axis labels are based on the unit. For exam
 
 In this graph, the x-axis is labeled '*q* / s' where '*q*' is the quantity symbol and
 's' is the unit symbol for the unit seconds. The label is consistent with the BIPM
-recommendation discussed in the SI Brochure section 5.4.1 where the label is
+recommendation discussed in the `SI Brochure`_ section 5.4.1 where the label is
 a mathematical expression. A particular number on the axis, such as 2.00, is then
 read as 2.00 = *q* / s, or *q* = 2.00 s. The *q* here is just a generic quantity
 symbol. It can be replaced by updating the qsym attribute of the Quantity as shown
@@ -104,3 +104,6 @@ Notes
 - µ is ALT+230
 - ° is ALT+248
 - day has unit symbol d that conflicts with candela symbol cd and is not supported
+
+.. _Matplotlib: https://github.com/matplotlib/matplotlib
+.. _SI Brochure: https://www.bipm.org/en/publications/si-brochure/
