@@ -75,7 +75,10 @@ class Quantity(np.ndarray):
 
     @property
     def qsym(self):
-        """symbol (str): the quantity symbol for use as a label"""
+        """symbol (str): the quantity symbol for use as a label
+            The symbol can be a Python expression like 'v_max**2' or
+            can be a Latex expression like 'v_{\rm max}^2'.
+        """
         return self._qsym
 
     @qsym.setter

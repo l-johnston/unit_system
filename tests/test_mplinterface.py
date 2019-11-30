@@ -9,10 +9,10 @@ def test_label():
     _, ax = plt.subplots()
     ax.plot(x, y)
     assert ax.xaxis.have_units()
-    expected = "$q\\;/\\;{\\rm A}$"
+    expected = "$I\\;/\\;{\\rm A}$"
     assert ax.xaxis.get_label().get_text() == expected
     assert ax.yaxis.have_units()
-    expected = "$q\\;/\\;{\\rm V}$"
+    expected = "$U\\;/\\;{\\rm V}$"
     assert ax.yaxis.get_label().get_text() == expected
 
 
@@ -22,7 +22,7 @@ def test_labelwithpar():
     _, ax = plt.subplots()
     ax.plot(x, y)
     assert ax.xaxis.have_units()
-    expected = "$q\\;/\\;{\\rm s}$"
+    expected = "$t\\;/\\;{\\rm s}$"
     assert ax.xaxis.get_label().get_text() == expected
     assert ax.yaxis.have_units()
     expected = "$q\\;/\\;{\\rm (m/s)}$"
@@ -45,14 +45,19 @@ def test_labelwithpwr():
 
 def test_qsym():
     x = [1, 2, 3] * s
-    x.qsym = "t"
-    y = [4, 5, 6] * m / s
-    y.qsym = "v"
+    x.qsym = "t_r"
+    y = [4, 5, 6] * (m / s) ** 2
+    y.qsym = "v_max**2"
     _, ax = plt.subplots()
     ax.plot(x, y)
     assert ax.xaxis.have_units()
-    expected = "$t\\;/\\;{\\rm s}$"
+    expected = "$t_{\\rm r}\\;/\\;{\\rm s}$"
     assert ax.xaxis.get_label().get_text() == expected
     assert ax.yaxis.have_units()
-    expected = "$v\\;/\\;{\\rm (m/s)}$"
+    expected = "$v_{\\rm max}^2\\;/\\;{\\rm (m^2/s^2)}$"
+    assert ax.yaxis.get_label().get_text() == expected
+    y.qsym = r"$v_{\rm max}^2$"
+    _, ax = plt.subplots()
+    ax.plot(x, y)
+    expected = "$v_{\\rm max}^2\\;/\\;{\\rm (m^2/s^2)}$"
     assert ax.yaxis.get_label().get_text() == expected
