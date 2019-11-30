@@ -9,6 +9,16 @@ from unit_system import Quantity
 def test_zero():
     q = Quantity(0, "m")
     assert q == 0
+    q = Quantity(1, "s")
+    result = 0 * q
+    assert result == 0
+    q = Quantity([1, 2, 3], "s")
+    result = 0 * q
+    assert (result == np.asarray([0.0, 0.0, 0.0])).all()
+    q = Quantity(1, "0")
+    result = 0 * q
+    assert result == 0
+    assert 0 + Quantity(1, "s") == Quantity(1, "s")
 
 
 def test_class():

@@ -41,6 +41,8 @@ class Quantity(np.ndarray):
     def __new__(cls, value, unit, to_unit="auto"):
         if value == 0 or unit == "1":
             return value
+        if unit == "0":
+            return np.asarray(value, dtype=np.float) * 0
         obj = np.asarray(value, dtype=np.float).view(cls)
         obj._unit = unit
         obj._tounit = to_unit
@@ -77,7 +79,7 @@ class Quantity(np.ndarray):
     def qsym(self):
         """symbol (str): the quantity symbol for use as a label
             The symbol can be a Python expression like 'v_max**2' or
-            can be a Latex expression like 'v_{\rm max}^2'.
+            can be a Latex expression like '$v_{\\rm max}^2$'.
         """
         return self._qsym
 
@@ -111,6 +113,9 @@ class Quantity(np.ndarray):
         if self.unit == "1":
             value = self.view(np.ndarray)
             return value if value.size > 1 else float(value)
+        if self.unit == "0":
+            value = self.view(np.ndarray) * 0
+            return value if value.size > 1 else float(0)
         old_basescale, old_baseunit = parse(self.unit)
         if self.size > 1:
             value = self.view(np.ndarray)
@@ -211,8 +216,13 @@ class Quantity(np.ndarray):
         elif operation in ["divide", "true_divide"]:
             unit_str = "(" + ")/(".join(units) + ")"
         elif operation in ["add", "subtract"]:
-            unit_str = units[0]
             for unit in units:
+                if unit not in ["0", "0.0"]:
+                    unit_str = unit
+                    break
+            for unit in units:
+                if unit in ["0", "0.0"]:
+                    continue
                 if unit != unit_str:
                     raise ValueError(f"incompatible units")
         elif operation == "square":
