@@ -66,13 +66,14 @@ in the case of Quantity, the default axis labels are based on the unit. For exam
 
 .. image:: examples/default_labels_graph.png
 
-In this graph, the x-axis is labeled '*q* / s' where '*q*' is the quantity symbol and
-'s' is the unit symbol for the unit seconds. The label is consistent with the BIPM
-recommendation discussed in the `SI Brochure`_ section 5.4.1 where the label is
-a mathematical expression. A particular number on the axis, such as 2.00, is then
-read as 2.00 = *q* / s, or *q* = 2.00 s. The *q* here is just a generic quantity
-symbol. It can be replaced by updating the qsym attribute of the Quantity as shown
-in the following example that reproduces the graph in section 5.4.1 of the SI Brochure.
+In this graph, the x-axis is labeled '*t* / s' where '*t*' is the standard quantity
+symbol for time and 's' is the unit symbol for the unit seconds. The label is
+consistent with the BIPM recommendation discussed in the `SI Brochure`_ section
+5.4.1 where the label is a mathematical expression. A particular number on the axis,
+such as 2.0, is then read as 2.00 = *t* / s, or *t* = 2.0 s. On the y-axis, the *q*
+here is just a generic quantity symbol. It can be replaced by updating the qsym
+attribute of the Quantity as shown in the following example that reproduces the graph
+in section 5.4.1 of the SI Brochure.
 
 >>> import matplotlib.pyplot as plt
 >>> from unit_system.predefined_units import *
