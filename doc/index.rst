@@ -1,5 +1,6 @@
 Welcome to unit_system
 ======================
+.. image:: https://img.shields.io/pypi/v/unit-system
 
 A Python package for doing physical quantity math in the SI unit system
 
