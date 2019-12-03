@@ -1,6 +1,6 @@
 """Test matplotlib units interface"""
 import matplotlib.pyplot as plt
-from unit_system.predefined_units import A, V, m, s
+from unit_system.predefined_units import A, V, m, s, Hz, Quantity
 
 # pylint: disable=missing-function-docstring
 def test_label():
@@ -60,4 +60,17 @@ def test_qsym():
     _, ax = plt.subplots()
     ax.plot(x, y)
     expected = "$v_{\\rm max}^2\\;/\\;{\\rm (m^2/s^2)}$"
+    assert ax.yaxis.get_label().get_text() == expected
+
+
+def test_std_qsym():
+    x = [1, 2, 3] * Hz
+    x.to("Hz")
+    dB = Quantity(1, "dB")
+    y = [4, 5, 6] * dB
+    _, ax = plt.subplots()
+    ax.plot(x, y)
+    expected = "$f\\;/\\;{\\rm Hz}$"
+    assert ax.xaxis.get_label().get_text() == expected
+    expected = "$q\\;/\\;{\\rm dB}$"
     assert ax.yaxis.get_label().get_text() == expected

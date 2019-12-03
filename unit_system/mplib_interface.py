@@ -5,6 +5,7 @@ try:
 except ModuleNotFoundError:
     pass
 else:
+    import re
     from unit_system import Quantity
 
     class QuantityConverter(ConversionInterface):
@@ -78,6 +79,12 @@ else:
                 "g": "m",
                 "Pa": "p",
             }
-            return standard_symbols.get(usym[-1], "q")
+
+            for unit, qsym in standard_symbols.items():
+                if re.match(f".*{unit}$", usym) is not None:
+                    break
+            else:
+                qsym = "q"
+            return qsym
 
     mpl.units.registry[Quantity] = QuantityConverter()
