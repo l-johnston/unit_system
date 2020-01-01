@@ -39,7 +39,7 @@ class Quantity(np.ndarray):
     # can only define ndarray metadata attributes in __new__
     # temporay object, obj, is passed to __array_finalize__
     def __new__(cls, value, unit, to_unit="auto"):
-        if value == 0 or unit == "1":
+        if unit == "1":
             return value
         if unit == "0":
             return np.asarray(value, dtype=np.float) * 0
@@ -191,14 +191,14 @@ class Quantity(np.ndarray):
         if isinstance(index, Number) and index >= self.size:
             raise IndexError
         try:
-            value = super(Quantity, self).__getitem__(index)
+            value = self.view(np.ndarray)[index]
         except IndexError:
             value = self.item()
         if isinstance(value, Number):
             if self._unit is None:
                 return value
             return Quantity(value, self._unit, self._tounit)
-        return value
+        return Quantity(np.copy(value), self._unit, self._tounit)
 
     @staticmethod
     def _computeunit(operation, units):

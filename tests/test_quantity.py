@@ -8,7 +8,7 @@ from unit_system import Quantity
 # pylint: disable=expression-not-assigned
 def test_zero():
     q = Quantity(0, "m")
-    assert q == 0
+    assert str(q) == "0.0 m"
     q = Quantity(1, "s")
     result = 0 * q
     assert result == 0

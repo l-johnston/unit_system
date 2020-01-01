@@ -14,7 +14,11 @@ else:
         @staticmethod
         def axisinfo(unit, axis):
             """Return default axis label"""
-            qsym, usym = unit
+            if isinstance(unit, tuple):
+                qsym, usym = unit
+            else:
+                qsym = None
+                usym = unit
             qsym = QuantityConverter._lookup_qsym(usym) if qsym is None else qsym
             qsym = QuantityConverter._parse_qsym(qsym)
             if "*" in usym or "/" in usym or "**" in usym:
@@ -32,6 +36,19 @@ else:
         def default_units(x, axis):
             """Return the quantity and unit symbols for Quantity x"""
             return (x.qsym, x.unit)
+
+        @staticmethod
+        def convert(obj, unit, axis):
+            """convert unit (qsym, usym)"""
+            if isinstance(unit, tuple):
+                qsym, usym = unit
+            else:
+                qsym = None
+                usym = unit
+            obj.to(usym)
+            if qsym is not None:
+                obj.qsym = qsym
+            return obj
 
         @staticmethod
         def _parse_qsym(qsym):

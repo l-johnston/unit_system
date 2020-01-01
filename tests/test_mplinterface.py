@@ -74,3 +74,12 @@ def test_std_qsym():
     assert ax.xaxis.get_label().get_text() == expected
     expected = "$q\\;/\\;{\\rm dB}$"
     assert ax.yaxis.get_label().get_text() == expected
+
+
+def test_set_units():
+    x = [0, 1, 2] * s
+    y = [1, 2, 3] * m
+    _, ax = plt.subplots()
+    ax.plot(x, y, xunits="ms")
+    results = ax.lines[0].get_data()[0] == Quantity([0, 1000, 2000], "ms", "ms")
+    assert results.all()

@@ -59,10 +59,22 @@ in the case of Quantity, the default axis labels are based on the unit. For exam
 
 >>> import matplotlib.pyplot as plt
 >>> from unit_system.predefined_units import *
->>> x = [1, 2, 3]*s
+>>> x = [0, 1, 2]*s
 >>> y = [4, 5, 6]*m/s
 >>> plt.plot(x, y)
 >>> plt.show()
+
+It is possible to change the units:
+>>> x = [0, 0.01, 0.02]*s
+>>> y = [0.04, 0.05, 0.06]*m/s
+>>> plt.plot(x, y, xunits="ms", yunits="mm/s")
+>>> plt.show()
+
+It is possible to update the quantity symbol in the axis label:
+>>> x = [0, 0.01, 0.02]*s
+>>> y = [0.04, 0.05, 0.06]*m/s
+>>> plt.plot(x, y, xunits="ms", yunits=("v_i", "m/s")
+>>>plt.show()
 
 .. image:: examples/default_labels_graph.png
 
