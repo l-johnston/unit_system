@@ -47,14 +47,14 @@ experience to Python and in particular, interactive enviroments like <a class="r
 ndarray combining the numerical value and unit in a single data structure. By making
 Quantity a subclass of ndarray, it handles scalers and arrays in the same way and
 leverages NumPy. For example, scaler quantities can be created:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">unit_system</span> <span class="kn">import</span> <span class="n">Quantity</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">unit_system</span> <span class="kn">import</span> <span class="n">Quantity</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">length</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">1.2</span><span class="p">,</span> <span class="s2">&quot;m&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">length</span>
 <span class="go">1.2 m</span>
 </pre></div>
 </div>
 <p>Arithmetic with scalers can be performed:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">l1</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">1.2</span><span class="p">,</span> <span class="s2">&quot;m&quot;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">l1</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">1.2</span><span class="p">,</span> <span class="s2">&quot;m&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">l2</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">3.6</span><span class="p">,</span> <span class="s2">&quot;m&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">l1</span> <span class="o">+</span> <span class="n">l2</span>
 <span class="go">4.8 m</span>
@@ -62,7 +62,7 @@ leverages NumPy. For example, scaler quantities can be created:</p>
 </div>
 <p>To simplify creation of quantities and improve readability, there are predefined units
 like in Mathcad:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">unit_system.predefined_units</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">unit_system.predefined_units</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">l1</span> <span class="o">=</span> <span class="mf">1.2</span><span class="o">*</span><span class="n">m</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">l2</span> <span class="o">=</span> <span class="mf">3.6</span><span class="o">*</span><span class="n">m</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">l1</span> <span class="o">+</span> <span class="n">l2</span>
@@ -70,7 +70,7 @@ like in Mathcad:</p>
 </pre></div>
 </div>
 <p>Arrays are easy to generate as well and leverage NumPy’s functionality:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lengths</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">,</span> <span class="mf">5.4</span><span class="p">,</span> <span class="mf">7.9</span><span class="p">]</span><span class="o">*</span><span class="n">m</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">lengths</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">,</span> <span class="mf">5.4</span><span class="p">,</span> <span class="mf">7.9</span><span class="p">]</span><span class="o">*</span><span class="n">m</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">perimeter</span> <span class="o">=</span> <span class="n">lengths</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">perimeter</span>
 <span class="go">18.1 m</span>
@@ -85,7 +85,7 @@ using Sympy to do the unit math. So, why not just use Unyt?</p>
 in an interactive Python session, and to that end, the appearance of the output should
 be the same - just show the quantity such as ‘18.1 m’. With Unyt, the output shows the
 data structure. For example,</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">unyt</span> <span class="kn">import</span> <span class="n">m</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">unyt</span> <span class="kn">import</span> <span class="n">m</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">l1</span> <span class="o">=</span> <span class="mf">1.2</span><span class="o">*</span><span class="n">m</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">l2</span> <span class="o">=</span> <span class="mf">3.6</span><span class="o">*</span><span class="n">m</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">l1</span> <span class="o">+</span> <span class="n">l2</span>
@@ -98,7 +98,7 @@ read the quantity.</p>
 <p>Another objective, and philosphical difference with Unyt, is to
 force computation within a single unit system. Unyt, however,
 allows mixing systems in a single expression. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">unyt</span> <span class="kn">import</span> <span class="n">m</span><span class="p">,</span> <span class="n">ft</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">unyt</span> <span class="kn">import</span> <span class="n">m</span><span class="p">,</span> <span class="n">ft</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="mf">1.2</span><span class="o">*</span><span class="n">m</span> <span class="o">+</span> <span class="mf">3.6</span><span class="o">*</span><span class="n">ft</span>
 <span class="go">unyt_quantity(2.29728, &#39;m&#39;)</span>
 </pre></div>
@@ -106,7 +106,7 @@ allows mixing systems in a single expression. For example:</p>
 <p>This encourages round-trips between systems and encourages continued use of
 non-SI systems. This package provides a <code class="docutils literal notranslate"><span class="pre">convert</span></code> function to
 convert a non-SI quantity into its SI equivalent. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">unit_system.predefined_units</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">unit_system.predefined_units</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">unit_system</span> <span class="kn">import</span> <span class="n">convert</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">l1</span> <span class="o">=</span> <span class="mf">1.2</span><span class="o">*</span><span class="n">m</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">l2</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="mf">3.6</span><span class="p">,</span> <span class="s2">&quot;ft&quot;</span><span class="p">)</span>
@@ -190,7 +190,7 @@ described in <a class="reference internal" href="usage.html"><span class="doc">U
       &copy;2019, Lee Johnston.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>

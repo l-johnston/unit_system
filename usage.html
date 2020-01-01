@@ -38,7 +38,7 @@
 <h2>Basic<a class="headerlink" href="#basic" title="Permalink to this headline">¶</a></h2>
 <p>The most common usage pattern, and especially for interactive sessions, is to import
 the predefined units:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">unit_system.predefined_units</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">unit_system.predefined_units</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Rsense</span> <span class="o">=</span> <span class="mf">10.0</span><span class="o">*</span><span class="n">mΩ</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Rsense</span>
 <span class="go">0.01 Ω</span>
@@ -46,19 +46,19 @@ the predefined units:</p>
 <span class="go">10.0 mΩ</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Is</span> <span class="o">=</span> <span class="mi">10</span><span class="o">*</span><span class="n">A</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Is</span> <span class="o">=</span> <span class="mi">10</span><span class="o">*</span><span class="n">A</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Is</span><span class="o">*</span><span class="n">Rsense</span>
 <span class="go">0.1 V</span>
 </pre></div>
 </div>
 <p>Temperature in Celsius has to be entered using:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Ta</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mi">23</span><span class="p">,</span> <span class="s2">&quot;°C&quot;</span><span class="p">)</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Ta</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mi">23</span><span class="p">,</span> <span class="s2">&quot;°C&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>since the ‘°’ symbol’s unicode value lies outside the acceptable range for Python
 variable names.</p>
 <p>Temperature differences are expressed in kelvin:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dV</span> <span class="o">=</span> <span class="mi">1</span><span class="o">*</span><span class="n">V</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">dV</span> <span class="o">=</span> <span class="mi">1</span><span class="o">*</span><span class="n">V</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dT</span> <span class="o">=</span> <span class="mi">1</span><span class="o">*</span><span class="n">K</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tempco</span> <span class="o">=</span> <span class="n">dV</span><span class="o">/</span><span class="n">dT</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tempco</span>
@@ -68,14 +68,14 @@ variable names.</p>
 </pre></div>
 </div>
 <p>Arrays can be created:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">Hz</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;Hz&quot;</span><span class="p">)</span>
 <span class="go">[ 1. 10.] Hz</span>
 </pre></div>
 </div>
 <p>You can convert from a non-SI unit into the SI equivalent, but it is a one-way trip.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">unit_system</span> <span class="kn">import</span> <span class="n">convert</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">unit_system</span> <span class="kn">import</span> <span class="n">convert</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Ta</span> <span class="o">=</span> <span class="n">convert</span><span class="p">(</span><span class="mi">72</span><span class="p">,</span> <span class="s1">&#39;°F&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">Ta</span>
 <span class="go">295.37 K</span>
@@ -90,14 +90,24 @@ variable names.</p>
 registered allowing matplotlib to perform operations as defined by that custom class.
 Normally, the default axis labels in matplotlib are set to <code class="docutils literal notranslate"><span class="pre">None</span></code>, but
 in the case of Quantity, the default axis labels are based on the unit. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">unit_system.predefined_units</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span><span class="o">*</span><span class="n">s</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">s</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span><span class="o">*</span><span class="n">m</span><span class="o">/</span><span class="n">s</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+<p>It is possible to change the units:
+&gt;&gt;&gt; x = [0, 0.01, 0.02]*s
+&gt;&gt;&gt; y = [0.04, 0.05, 0.06]*m/s
+&gt;&gt;&gt; plt.plot(x, y, xunits=”ms”, yunits=”mm/s”)
+&gt;&gt;&gt; plt.show()</p>
+<p>It is possible to update the quantity symbol in the axis label:
+&gt;&gt;&gt; x = [0, 0.01, 0.02]*s
+&gt;&gt;&gt; y = [0.04, 0.05, 0.06]*m/s
+&gt;&gt;&gt; plt.plot(x, y, xunits=”ms”, yunits=(“v_i”, “m/s”)
+&gt;&gt;&gt;plt.show()</p>
 <img alt="_images/default_labels_graph.png" src="_images/default_labels_graph.png" />
 <p>In this graph, the x-axis is labeled ‘<em>t</em> / s’ where ‘<em>t</em>’ is the standard quantity
 symbol for time and ‘s’ is the unit symbol for the unit seconds. The label is
@@ -107,7 +117,7 @@ such as 2.0, is then read as 2.00 = <em>t</em> / s, or <em>t</em> = 2.0 s. On th
 here is just a generic quantity symbol. It can be replaced by updating the qsym
 attribute of the Quantity as shown in the following example that reproduces the graph
 in section 5.4.1 of the SI Brochure.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">unit_system.predefined_units</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">kPa</span> <span class="o">=</span> <span class="n">Quantity</span><span class="p">(</span><span class="mf">1e3</span><span class="p">,</span> <span class="s2">&quot;Pa&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mf">48.73</span><span class="p">,</span> <span class="mf">72.87</span><span class="p">,</span> <span class="mf">135.42</span><span class="p">]</span><span class="o">*</span><span class="n">kPa</span>
@@ -215,7 +225,7 @@ in section 5.4.1 of the SI Brochure.</p>
       &copy;2019, Lee Johnston.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>
