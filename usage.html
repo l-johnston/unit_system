@@ -98,16 +98,20 @@ in the case of Quantity, the default axis labels are based on the unit. For exam
 <span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>It is possible to change the units:
-&gt;&gt;&gt; x = [0, 0.01, 0.02]*s
-&gt;&gt;&gt; y = [0.04, 0.05, 0.06]*m/s
-&gt;&gt;&gt; plt.plot(x, y, xunits=”ms”, yunits=”mm/s”)
-&gt;&gt;&gt; plt.show()</p>
-<p>It is possible to update the quantity symbol in the axis label:
-&gt;&gt;&gt; x = [0, 0.01, 0.02]*s
-&gt;&gt;&gt; y = [0.04, 0.05, 0.06]*m/s
-&gt;&gt;&gt; plt.plot(x, y, xunits=”ms”, yunits=(“v_i”, “m/s”)
-&gt;&gt;&gt;plt.show()</p>
+<p>It is possible to change the units:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">]</span><span class="o">*</span><span class="n">s</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.04</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">]</span><span class="o">*</span><span class="n">m</span><span class="o">/</span><span class="n">s</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">xunits</span><span class="o">=</span><span class="s2">&quot;ms&quot;</span><span class="p">,</span> <span class="n">yunits</span><span class="o">=</span><span class="s2">&quot;mm/s&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>It is possible to update the quantity symbol in the axis label:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">]</span><span class="o">*</span><span class="n">s</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.04</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.06</span><span class="p">]</span><span class="o">*</span><span class="n">m</span><span class="o">/</span><span class="n">s</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">xunits</span><span class="o">=</span><span class="s2">&quot;ms&quot;</span><span class="p">,</span> <span class="n">yunits</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;v_i&quot;</span><span class="p">,</span> <span class="s2">&quot;m/s&quot;</span><span class="p">)</span>
+<span class="go">&gt;&gt;&gt;plt.show()</span>
+</pre></div>
+</div>
 <img alt="_images/default_labels_graph.png" src="_images/default_labels_graph.png" />
 <p>In this graph, the x-axis is labeled ‘<em>t</em> / s’ where ‘<em>t</em>’ is the standard quantity
 symbol for time and ‘s’ is the unit symbol for the unit seconds. The label is
