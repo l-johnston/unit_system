@@ -93,6 +93,27 @@
 </pre></div>
 </div>
 <dl class="method">
+<dt id="unit_system.quantity.Quantity.interpolate">
+<code class="sig-name descname">interpolate</code><span class="sig-paren">(</span><em class="sig-param">index</em><span class="sig-paren">)</span><a class="headerlink" href="#unit_system.quantity.Quantity.interpolate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute value at fractional index of 1D Quantity array</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>index</strong> (<em>float</em>) – fractional index</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>linearly interpolated value between two consequtive elements</dt><dd><p>or None if not found or if a scalar or if not a 1D array</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(<a class="reference internal" href="#unit_system.quantity.Quantity" title="unit_system.quantity.Quantity">Quantity</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
 <dt id="unit_system.quantity.Quantity.qsym">
 <em class="property">property </em><code class="sig-name descname">qsym</code><a class="headerlink" href="#unit_system.quantity.Quantity.qsym" title="Permalink to this definition">¶</a></dt>
 <dd><p>the quantity symbol for use as a label
@@ -101,6 +122,30 @@ can be a Latex expression like ‘$v_{\rm max}^2$’.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>symbol (str)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="unit_system.quantity.Quantity.threshold">
+<code class="sig-name descname">threshold</code><span class="sig-paren">(</span><em class="sig-param">value</em>, <em class="sig-param">start=0</em><span class="sig-paren">)</span><a class="headerlink" href="#unit_system.quantity.Quantity.threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find fractional index of value in a 1D Quantity array</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> (<a class="reference internal" href="#unit_system.quantity.Quantity" title="unit_system.quantity.Quantity"><em>Quantity</em></a>) – </p></li>
+<li><p><strong>start</strong> (<em>int</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>fractional index where value is between two consequtive elements</dt><dd><p>or None if not found or if a scalar or if not 1D array.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(float)</p>
 </dd>
 </dl>
 </dd></dl>
