@@ -360,3 +360,38 @@ def test_format():
     a = Quantity(1.1234, "m")
     assert f"{a}" == "1.1234 m"
     assert f"{a:.2f}" == "1.12 m"
+
+
+def test_threshold():
+    a = Quantity([0, 1, 2], "s")
+    value = Quantity(0.5, "s")
+    fractional_index = a.threshold(value)
+    assert fractional_index == 0.5
+    a = Quantity(1, "s")
+    fractional_index = a.threshold(value)
+    assert fractional_index is None
+    a = Quantity([1.0, 2.0, 3.0], "s")
+    fractional_index = a.threshold(value)
+    assert fractional_index is None
+    value = Quantity(3.0, "s")
+    fractional_index = a.threshold(value)
+    assert fractional_index is None
+    a = Quantity([[0], [1], [2]], "s")
+    fractional_index = a.threshold(value)
+    assert fractional_index is None
+
+
+def test_interpolate():
+    a = Quantity([0, 1, 2], "s")
+    index = 0.5
+    value = a.interpolate(index)
+    assert value == Quantity(0.5, "s")
+    a = Quantity([0, -1, 2], "s")
+    value = a.interpolate(index)
+    assert value == Quantity(-0.5, "s")
+    a = Quantity(1, "s")
+    value = a.interpolate(index)
+    assert value is None
+    a = Quantity([[0], [1], [2]], "s")
+    value = a.interpolate(index)
+    assert value is None

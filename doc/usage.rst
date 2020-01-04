@@ -76,7 +76,7 @@ It is possible to update the quantity symbol in the axis label:
 >>> x = [0, 0.01, 0.02]*s
 >>> y = [0.04, 0.05, 0.06]*m/s
 >>> plt.plot(x, y, xunits="ms", yunits=("v_i", "m/s")
->>>plt.show()
+>>> plt.show()
 
 .. image:: examples/default_labels_graph.png
 

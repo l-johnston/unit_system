@@ -200,6 +200,51 @@ class Quantity(np.ndarray):
             return Quantity(value, self._unit, self._tounit)
         return Quantity(np.copy(value), self._unit, self._tounit)
 
+    def threshold(self, value, start=0):
+        """Find fractional index of value in a 1D Quantity array
+
+        Args:
+            value (Quantity)
+            start (int)
+
+        Returns:
+            (float): fractional index where value is between two consequtive elements
+                or None if not found or if a scalar or if not 1D array.
+        """
+        if self.ndim == 0 or self.ndim > 1:
+            return None
+        indices = np.nonzero(value >= self[start:])[0]
+        try:
+            lower_index = start + indices[-1]
+        except IndexError:
+            return None
+        lower_value = self[lower_index]
+        try:
+            upper_value = self[start + lower_index + 1]
+        except IndexError:
+            return None
+        fractional = (value - lower_value) / (upper_value - lower_value)
+        return lower_index + fractional
+
+    def interpolate(self, index):
+        """Compute value at fractional index of 1D Quantity array
+
+        Args:
+            index (float): fractional index
+
+        Returns:
+            (Quantity): linearly interpolated value between two consequtive elements
+                or None if not found or if a scalar or if not a 1D array
+        """
+        if self.ndim == 0 or self.ndim > 1:
+            return None
+        lower_index = int(np.floor(index))
+        lower_value = self[lower_index]
+        upper_index = int(np.ceil(index))
+        upper_value = self[upper_index]
+        fractional = (upper_value - lower_value) * (index - lower_index)
+        return lower_value + fractional
+
     @staticmethod
     def _computeunit(operation, units):
         """Perform the unit symbol arithmetic using sympy
