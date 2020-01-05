@@ -1,5 +1,7 @@
 """Test matplotlib units interface"""
 import matplotlib.pyplot as plt
+from matplotlib.units import ConversionError
+from pytest import raises
 from unit_system.predefined_units import A, V, m, s, Hz, Quantity
 
 # pylint: disable=missing-function-docstring
@@ -83,3 +85,10 @@ def test_set_units():
     ax.plot(x, y, xunits="ms")
     results = ax.lines[0].get_data()[0] == Quantity([0, 1000, 2000], "ms", "ms")
     assert results.all()
+
+
+def test_set_wrong_units():
+    with raises(ConversionError):
+        x = [0, 1, 2] * s
+        y = [1, 2, 3] * m
+        plt.plot(x, y, xunits="mm")

@@ -1,7 +1,7 @@
 """Matplotlib Conversion Interface"""
 try:
     import matplotlib as mpl
-    from matplotlib.units import ConversionInterface
+    from matplotlib.units import ConversionInterface, ConversionError
 except ModuleNotFoundError:
     pass
 else:
@@ -46,6 +46,8 @@ else:
                 qsym = None
                 usym = unit
             obj.to(usym)
+            if obj.unit != usym:
+                raise ConversionError("Incompatible units")
             if qsym is not None:
                 obj.qsym = qsym
             return obj
