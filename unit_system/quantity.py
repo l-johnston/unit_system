@@ -39,8 +39,6 @@ class Quantity(np.ndarray):
     # can only define ndarray metadata attributes in __new__
     # temporay object, obj, is passed to __array_finalize__
     def __new__(cls, value, unit, to_unit="auto"):
-        if unit == "1":
-            return value
         if unit == "0":
             return np.asarray(value, dtype=np.float) * 0
         obj = np.asarray(value, dtype=np.float).view(cls)
@@ -72,8 +70,14 @@ class Quantity(np.ndarray):
 
     @property
     def unit(self):
-        """str: the unit symbol expression of the quantity"""
+        """unit (str): the unit symbol expression of the quantity"""
         return self._unit
+
+    @unit.setter
+    def unit(self, unit):
+        self._unit = unit
+        if unit is not None:
+            self.to(self._tounit)
 
     @property
     def qsym(self):
@@ -169,14 +173,14 @@ class Quantity(np.ndarray):
     def __repr__(self):
         value = self.view(np.ndarray)
         value_str = str(value) if value.size > 1 else str(float(value))
-        quantity_str = value_str + f" {self.unit}"
-        return quantity_str
+        unit_str = f" {self.unit}" if self.unit not in ["1", None] else ""
+        return value_str + unit_str
 
     def __str__(self):
         value = self.view(np.ndarray)
         value_str = str(value) if value.size > 1 else str(float(value))
-        quantity_str = value_str + f" {self.unit}"
-        return quantity_str
+        unit_str = f" {self.unit}" if self.unit not in ["1", None] else ""
+        return value_str + unit_str
 
     def __format__(self, fmt=None):
         if fmt == "":

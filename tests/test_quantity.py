@@ -395,3 +395,10 @@ def test_interpolate():
     a = Quantity([[0], [1], [2]], "s")
     value = a.interpolate(index)
     assert value is None
+
+
+def test_unit_setter():
+    a = Quantity([0, 1, 2], None)
+    a.unit = "s"
+    results = a == Quantity([0, 1, 2], "s")
+    assert results.all()
