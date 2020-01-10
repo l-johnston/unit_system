@@ -281,7 +281,7 @@ class Quantity(np.ndarray):
         elif operation == "sqrt":
             unit_str = "(" + units[0] + ")**(1/2)"
         elif operation in QUANTITY_COMPARISON:
-            if operation == "equal":
+            if operation in ["equal", "not_equal"]:
                 return "1"
             unit_str = units[0]
             for unit in units:
