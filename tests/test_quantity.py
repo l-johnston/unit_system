@@ -186,11 +186,15 @@ def test_lt():
 
 
 # pylint: disable=pointless-statement
-def test_lt_error():
+def test_lt_error_1():
     a = Quantity(1, "mm")
     b = Quantity(2, "kg")
     with raises(ValueError):
         a < b
+
+
+def test_lt_error_2():
+    a = Quantity(1, "m")
     with raises(ValueError):
         a < 2.0
 
@@ -202,13 +206,17 @@ def test_gt():
     assert not a > b
 
 
-def test_gt_error():
+def test_gt_error_1():
     a = Quantity(1, "mm")
     b = Quantity(2, "kg")
     with raises(ValueError):
         b > a
+
+
+def test_gt_error_2():
+    a = Quantity(2, "kg")
     with raises(ValueError):
-        a > 2.0
+        a > 2
 
 
 def test_le():

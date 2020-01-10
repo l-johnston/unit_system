@@ -281,11 +281,13 @@ class Quantity(np.ndarray):
         elif operation == "sqrt":
             unit_str = "(" + units[0] + ")**(1/2)"
         elif operation in QUANTITY_COMPARISON:
+            if operation == "equal":
+                return "1"
             unit_str = units[0]
             for unit in units:
                 if unit != unit_str:
                     raise ValueError(f"incompatible units")
-            return units[0]
+            return "1"
         else:
             return units[0]
         return parse(unit_str)[1]
