@@ -113,6 +113,16 @@ in section 5.4.1 of the SI Brochure.
 
 .. image:: examples/bipm_graph.png
 
+Default label style
+~~~~~~~~~~~~~~~~~~~
+
+The default label style described above is different than the style commonly
+used in technical publications where the axis label is considered arbitrary caption text
+with the units shown in parentheses. It is possible to use this style by changing
+the ``matplotlib_label_style`` option from ``si`` to ``caption`` in the
+``unit_system.ini`` file located in the ``.unit_system`` folder in the user's
+home directory.
+
 Notes
 -----
 - Ω is ALT+234
