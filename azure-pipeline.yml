@@ -68,7 +68,7 @@ jobs:
   - script: |
       mkdir $HOME/.unit_system
       echo -e "[unit_system]\nmatplotlib_label_style = caption" > $HOME/.unit_system/unit_system.ini
-      pytest tests/ --junitxml=junit/test-results.xml --cov=unit_system --cov-report=html --cov-report=xml --cov-append
+      pytest tests/ --junitxml=junit/test-results.xml --cov=unit_system --cov-append --cov-report=html --cov-report=xml
     displayName: 'Run the test suite with ini file'
 
   - task: PublishTestResults@2
@@ -108,7 +108,14 @@ jobs:
 
   - script: |
       pytest tests/ --junitxml=junit/test-results.xml --cov=unit_system --cov-report=html --cov-report=xml
-    displayName: 'Run test suite'
+    displayName: 'Run test suite without ini file'
+
+  - script: |
+      mkdir %USERPROFILE%\.unit_system
+      echo [unit_system] > %USERPROFILE%\.unit_system\unit_system.ini
+      echo matplotlib_label_style=caption >> %USERPROFILE%\.unit_system\unit_system.ini
+      pytest tests/ --junitxml=junit/test-results.xml --cov=unit_system --cov-append --cov-report=html --cov-report=xml
+    displayName: 'Run test suite with ini file'
 
   - task: PublishTestResults@2
     inputs:
