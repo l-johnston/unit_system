@@ -11,25 +11,15 @@ else:
     class QuantityConverter(ConversionInterface):
         """Matplotlib interface for Quantity"""
 
+        label_style = "si"
+
         @staticmethod
         def axisinfo(unit, axis):
             """Return default axis label"""
-            if isinstance(unit, tuple):
-                qsym, usym = unit
+            if QuantityConverter.label_style == "caption":
+                label = QuantityConverter._caption_style(unit)
             else:
-                qsym = None
-                usym = unit
-            qsym = QuantityConverter._lookup_qsym(usym) if qsym is None else qsym
-            qsym = QuantityConverter._parse_qsym(qsym)
-            if "*" in usym or "/" in usym or "**" in usym:
-                usym = usym.replace("**", "^")
-                usym = usym.replace("*", r"\cdot")
-                if usym.startswith("("):
-                    label = f"${qsym}" + r"\;/\;{\rm " + f"{usym}" + "}$"
-                else:
-                    label = f"${qsym}" + r"\;/\;{\rm (" + f"{usym}" + ")}$"
-            else:
-                label = f"${qsym}" + r"\;/\;{\rm " + f"{usym}" + "}$"
+                label = QuantityConverter._si_style(unit)
             return mpl.units.AxisInfo(label=label)
 
         @staticmethod
@@ -51,6 +41,26 @@ else:
             if qsym is not None:
                 obj.qsym = qsym
             return obj
+
+        @staticmethod
+        def _si_style(unit):
+            if isinstance(unit, tuple):
+                qsym, usym = unit
+            else:
+                qsym = None
+                usym = unit
+            qsym = QuantityConverter._lookup_qsym(usym) if qsym is None else qsym
+            qsym = QuantityConverter._parse_qsym(qsym)
+            if "*" in usym or "/" in usym or "**" in usym:
+                usym = usym.replace("**", "^")
+                usym = usym.replace("*", r"\cdot")
+                if usym.startswith("("):
+                    label = f"${qsym}" + r"\;/\;{\rm " + f"{usym}" + "}$"
+                else:
+                    label = f"${qsym}" + r"\;/\;{\rm (" + f"{usym}" + ")}$"
+            else:
+                label = f"${qsym}" + r"\;/\;{\rm " + f"{usym}" + "}$"
+            return label
 
         @staticmethod
         def _parse_qsym(qsym):
@@ -105,5 +115,50 @@ else:
             else:
                 qsym = "q"
             return qsym
+
+        @staticmethod
+        def _lookup_qlabel(usym):
+            """Assign appropriate quantity label based on the unit symbol"""
+
+            if "*" in usym or "/" in usym or "**" in usym:
+                return ""
+
+            standard_symbols = {
+                "V": "Voltage",
+                "A": "Current",
+                "Ω": "Resistance",
+                "F": "Capacitance",
+                "H": "Inductance",
+                "s": "Time",
+                "Hz": "Frequency",
+                "K": "Temperature",
+                "°C": "Temperature",
+                "m": "Length",
+                "W": "Power",
+                "J": "Energy",
+                "g": "Mass",
+                "Pa": "Pressure",
+            }
+
+            for unit, qlabel in standard_symbols.items():
+                if re.match(f".*{unit}$", usym) is not None:
+                    break
+            else:
+                qlabel = ""
+            return qlabel
+
+        @staticmethod
+        def _caption_style(unit):
+            if isinstance(unit, tuple):
+                qlabel, usym = unit
+            else:
+                qlabel = None
+                usym = unit
+            qlabel = (
+                QuantityConverter._lookup_qlabel(usym) if qlabel is None else qlabel
+            )
+            usym = usym.replace("**", "^")
+            usym = usym.replace("*", r"\cdot")
+            return r"${\rm " + f"{qlabel}" + r"\;(" + f"{usym}" + ")}$"
 
     mpl.units.registry[Quantity] = QuantityConverter()
