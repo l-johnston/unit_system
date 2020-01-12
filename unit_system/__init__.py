@@ -17,6 +17,10 @@ if os.path.exists(config_file):
     except configparser.NoSectionError:
         pass
     else:
-        mpli.QuantityConverter.label_style = options.get("matplotlib_label_style", "si")
+        label_style = options.get("matplotlib_label_style", "si")
+        try:
+            mpli.QuantityConverter.label_style = label_style
+        except AttributeError:
+            pass
 
 __all__ = ["Quantity", "convert"]
