@@ -5,6 +5,7 @@ from unit_system.quantity import Quantity
 from unit_system.convert import convert
 from unit_system.version import __version__
 import unit_system.mplib_interface as mpli
+from unit_system.predefined_units import predefined_units
 
 # pylint: disable=invalid-name
 home_path = os.path.expanduser("~")
@@ -23,4 +24,5 @@ if os.path.exists(config_file):
         except AttributeError:
             pass
 
-__all__ = ["Quantity", "convert"]
+globals().update(predefined_units)
+__all__ = ["Quantity", "convert"] + list(predefined_units.keys())

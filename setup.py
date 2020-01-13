@@ -37,5 +37,5 @@ setup(
         "Intended Audience :: Science/Research",
     ],
     url="https://github.com/l-johnston/unit_system",
-    install_requires=["numpy", "sympy"],
+    install_requires=["numpy>=1.17.0", "sympy>=1.4"],
 )

@@ -2,41 +2,45 @@
 from unit_system import Quantity
 
 # pylint: disable=invalid-name
-V = Quantity(1, "V")
-pV = 1e-12 * V
-nV = 1e-9 * V
-µV = 1e-6 * V
-mV = 1e-3 * V
-kV = 1e3 * V
-A = Quantity(1, "A")
-pA = 1e-12 * A
-nA = 1e-9 * A
-µA = 1e-6 * A
-mA = 1e-3 * A
-kA = 1e3 * A
-Ω = Quantity(1, "Ω")
-mΩ = 1e-3 * Ω
-kΩ = 1e3 * Ω
-MΩ = 1e6 * Ω
-Hz = Quantity(1, "Hz")
-kHz = 1e3 * Hz
-MHz = 1e6 * Hz
-GHz = 1e9 * Hz
-s = Quantity(1, "s")
-ps = 1e-12 * s
-ns = 1e-9 * s
-µs = 1e-6 * s
-ms = 1e-3 * s
-F = Quantity(1, "F")
-pF = 1e-12 * F
-nF = 1e-9 * F
-µF = 1e-6 * F
-mF = 1e-3 * F
-H = Quantity(1, "H")
-µH = 1e-6 * H
-mH = 1e-3 * H
-m = Quantity(1, "m")
-µm = 1e-6 * m
-mm = 1e-3 * m
-kg = Quantity(1, "kg")
-K = Quantity(1, "K")
+predefined_units = {
+    "V": Quantity(1, "V"),
+    "pV": Quantity(1e-12, "V"),
+    "nV": Quantity(1e-9, "V"),
+    "µV": Quantity(1e-6, "V"),
+    "mV": Quantity(1e-3, "V"),
+    "kV": Quantity(1e3, "V"),
+    "A": Quantity(1, "A"),
+    "pA": Quantity(1e-12, "A"),
+    "nA": Quantity(1e-9, "A"),
+    "µA": Quantity(1e-6, "A"),
+    "mA": Quantity(1e-3, "A"),
+    "kA": Quantity(1e3, "A"),
+    "Ω": Quantity(1, "Ω"),
+    "mΩ": Quantity(1e-3, "Ω"),
+    "kΩ": Quantity(1e3, "Ω"),
+    "MΩ": Quantity(1e6, "Ω"),
+    "Hz": Quantity(1, "Hz"),
+    "kHz": Quantity(1e3, "Hz"),
+    "MHz": Quantity(1e6, "Hz"),
+    "GHz": Quantity(1e9, "Hz"),
+    "s": Quantity(1, "s"),
+    "ps": Quantity(1e-12, "s"),
+    "ns": Quantity(1e-9, "s"),
+    "µs": Quantity(1e-6, "s"),
+    "ms": Quantity(1e-3, "s"),
+    "F": Quantity(1, "F"),
+    "pF": Quantity(1e-12, "F"),
+    "nF": Quantity(1e-9, "F"),
+    "µF": Quantity(1e-6, "F"),
+    "mF": Quantity(1e-3, "F"),
+    "H": Quantity(1, "H"),
+    "µH": Quantity(1e-6, "H"),
+    "mH": Quantity(1e-3, "H"),
+    "m": Quantity(1, "m"),
+    "µm": Quantity(1e-6, "m"),
+    "mm": Quantity(1e-3, "m"),
+    "kg": Quantity(1, "kg"),
+    "K": Quantity(1, "K"),
+}
+
+globals().update(predefined_units)

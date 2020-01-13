@@ -6,7 +6,7 @@ Basic
 The most common usage pattern, and especially for interactive sessions, is to import
 the predefined units:
 
->>> from unit_system.predefined_units import *
+>>> from unit_system import *
 >>> Rsense = 10.0*mΩ
 >>> Rsense
 0.01 Ω
@@ -58,7 +58,7 @@ Normally, the default axis labels in matplotlib are set to ``None``, but
 in the case of Quantity, the default axis labels are based on the unit. For example:
 
 >>> import matplotlib.pyplot as plt
->>> from unit_system.predefined_units import *
+>>> from unit_system import *
 >>> x = [0, 1, 2]*s
 >>> y = [4, 5, 6]*m/s
 >>> plt.plot(x, y)
@@ -90,7 +90,7 @@ attribute of the Quantity as shown in the following example that reproduces the 
 in section 5.4.1 of the SI Brochure.
 
 >>> import matplotlib.pyplot as plt
->>> from unit_system.predefined_units import *
+>>> from unit_system import *
 >>> kPa = Quantity(1e3, "Pa")
 >>> x = [48.73, 72.87, 135.42]*kPa
 >>> x.to("kPa")
