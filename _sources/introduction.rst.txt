@@ -31,7 +31,7 @@ Arithmetic with scalers can be performed:
 To simplify creation of quantities and improve readability, there are predefined units
 like in Mathcad:
 
->>> from unit_system.predefined_units import *
+>>> from unit_system import *
 >>> l1 = 1.2*m
 >>> l2 = 3.6*m
 >>> l1 + l2
@@ -77,8 +77,7 @@ This encourages round-trips between systems and encourages continued use of
 non-SI systems. This package provides a ``convert`` function to
 convert a non-SI quantity into its SI equivalent. For example:
 
->>> from unit_system.predefined_units import *
->>> from unit_system import convert
+>>> from unit_system import convert, m
 >>> l1 = 1.2*m
 >>> l2 = convert(3.6, "ft")
 >>> l1 + l2
