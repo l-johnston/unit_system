@@ -410,3 +410,26 @@ def test_unit_setter():
     a.unit = "s"
     results = a == Quantity([0, 1, 2], "s")
     assert results.all()
+
+
+def test_concatenate():
+    a = Quantity([0, 1, 2], "s")
+    b = Quantity([3, 4, 5], "s")
+    c = np.concatenate((a, b))
+    results = c == Quantity(list(range(6)), "s")
+    assert results.all()
+
+
+def test_concatenate_incompatible_units():
+    a = Quantity([0, 1, 2], "s")
+    b = Quantity([3, 4, 5], "m")
+    with raises(ValueError):
+        np.concatenate((a, b))
+
+
+def test_concatenate_unitless():
+    a = np.asarray([0, 1, 2])
+    b = Quantity([3, 4, 5], "s")
+    c = np.concatenate((a, b))
+    results = c == np.arange(0, 6, 1)
+    assert results.all()

@@ -3,7 +3,12 @@ from numbers import Number
 import numpy as np
 from sympy import factor
 from unit_system.parse_unit import parse
-from unit_system.constants import TOUNITS, QUANTITY_ARITHMETIC, QUANTITY_COMPARISON
+from unit_system.constants import (
+    TOUNITS,
+    QUANTITY_ARITHMETIC,
+    QUANTITY_COMPARISON,
+    QUANTITY_FUNCTIONS,
+)
 
 
 class Quantity(np.ndarray):
@@ -355,3 +360,41 @@ class Quantity(np.ndarray):
         else:
             result = results[0]
         return result if len(results) == 1 else results
+
+    def __array_function__(self, func, types, args, kwargs):
+        if func not in QUANTITY_FUNCTIONS:
+            return NotImplemented
+        if not all(issubclass(t, Quantity) for t in types):
+            return NotImplemented
+        return QUANTITY_FUNCTIONS[func](*args, **kwargs)
+
+
+def implements(numpy_function):
+    """Register an __array_function__ implementation"""
+
+    def decorator(func):
+        QUANTITY_FUNCTIONS[numpy_function] = func
+        return func
+
+    return decorator
+
+
+@implements(np.concatenate)
+def concatenate(arrays):
+    """Join a sequence of 1-D Quantity arrays
+
+    Args:
+        arrays (Quantity): sequence of Quantity arrays
+    """
+    arrays[0].to("auto")
+    u0 = arrays[0].unit
+    unitless_arrays = [arrays[0].value]
+    for array in arrays[1:]:
+        array.to("auto")
+        ux = array.unit
+        # pylint: disable=protected-access
+        if Quantity._computeunit("divide", [u0, ux]) != "1":
+            raise ValueError("incompatible units")
+        unitless_arrays.append(array.value)
+    cat_array = np.concatenate(unitless_arrays)
+    return Quantity(cat_array, u0)

@@ -103,3 +103,5 @@ QUANTITY_COMPARISON = [
     "greater_equal",
     "isfinite",
 ]
+
+QUANTITY_FUNCTIONS = {}
