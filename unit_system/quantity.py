@@ -81,6 +81,7 @@ class Quantity(np.ndarray):
     @unit.setter
     def unit(self, unit):
         self._unit = unit
+        self._tounit = "auto"
         if unit is not None:
             self.to(self._tounit)
 
@@ -119,6 +120,7 @@ class Quantity(np.ndarray):
             >>> capacitance
             10.0 pF
         """
+        self._tounit = unit
         if self.unit == "1":
             value = self.view(np.ndarray)
             return value if value.size > 1 else float(value)
@@ -133,7 +135,6 @@ class Quantity(np.ndarray):
             value = self.item()
             indices = []
         if unit != "auto":
-            self._tounit = unit
             new_basescale, new_baseunit = parse(unit)
             scale = old_basescale / new_basescale
             if "°C" in unit and "°C" not in self.unit:

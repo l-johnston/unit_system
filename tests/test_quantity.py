@@ -317,6 +317,9 @@ def test_sqrt():
     b = np.sqrt(a)
     assert b.value == 2
     assert b.unit == "sqrt(m)"
+    c = Quantity(1, "W")
+    d = np.sqrt(c ** 2)
+    assert d == Quantity(1, "W")
 
 
 def test_indexscaler():
@@ -326,9 +329,11 @@ def test_indexscaler():
 
 def test_toauto():
     a = Quantity([1, 1], "Hz", "1/s")
+    assert a._tounit == "1/s"
     a.to("auto")
     results = a == Quantity([1, 1], "1/s")
     assert results.all()
+    assert a._tounit == "auto"
 
 
 def test_slice():

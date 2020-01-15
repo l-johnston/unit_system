@@ -41,6 +41,14 @@ predefined_units = {
     "mm": Quantity(1e-3, "m"),
     "kg": Quantity(1, "kg"),
     "K": Quantity(1, "K"),
+    "W": Quantity(1, "W"),
+    "µW": Quantity(1e-6, "W"),
+    "mW": Quantity(1e-3, "W"),
+    "kW": Quantity(1e3, "W"),
+    "J": Quantity(1, "J"),
+    "µJ": Quantity(1e-6, "J"),
+    "mJ": Quantity(1e-3, "J"),
+    "kJ": Quantity(1e3, "J"),
 }
 
 globals().update(predefined_units)
