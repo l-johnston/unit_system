@@ -102,7 +102,7 @@ def test_composites():
     assert scale == 0.001
     assert unit == str(factor(expected))
 
-    given, expected = ("Hz**(-1/2)", "(1/s)**(-1/2)")
+    given, expected = ("Hz**(-1/2)", "sqrt(s)")
     scale, unit = parse(given)
     assert scale == 1.0
     assert unit == str(factor(expected))
