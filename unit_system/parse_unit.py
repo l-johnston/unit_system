@@ -1,6 +1,6 @@
 """Parse unit expression to SI base units"""
 from functools import lru_cache
-from sympy import factor, pi, S, Symbol, sqrt
+from sympy import factor, pi, sympify, Symbol, sqrt
 from unit_system.constants import PREFIXES, UNITS, UNIT_RE
 
 
@@ -45,12 +45,8 @@ def parse(unit):
             derived_unit = atom
             base_unit = UNIT_RE.sub(replace, derived_unit)
             base_units.append(f"{base_unit}")
-    expr = "".join(base_units)
-    sexpr = S(expr)
-    ns = {"sqrt": sqrt}
-    for sym in sexpr.free_symbols:
-        ns[str(sym)] = Symbol(str(sym), real=True, positive=True)
-    factored = factor(S(expr, ns))
+    rules = {"Symbol": lambda x: Symbol(x, real=True, positive=True), "sqrt": sqrt}
+    factored = factor(sympify("".join(base_units), rules))
     scale, base_unit = factored.as_coeff_Mul()
     if base_unit == pi:
         base_unit = "1"
