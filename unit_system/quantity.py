@@ -2,6 +2,8 @@
 import numpy as np
 from unyt import unyt_array, unyt_quantity
 
+QUANTITY_FUNCTIONS = {}
+
 
 class Quantity(unyt_array):
     """A physical quantity data type in the SI system
@@ -117,6 +119,44 @@ class Quantity(unyt_array):
         upper_value = self[upper_index]
         fractional = (upper_value - lower_value) * (index - lower_index)
         return lower_value + fractional
+
+    def __array_function__(self, func, types, args, kwargs):
+        if func not in QUANTITY_FUNCTIONS:
+            return NotImplemented
+        if not all(issubclass(t, Quantity) for t in types):
+            return NotImplemented
+        return QUANTITY_FUNCTIONS[func](*args, **kwargs)
+
+
+def implements(numpy_function):
+    """Register an __array_function__ implementation"""
+
+    def decorator(func):
+        QUANTITY_FUNCTIONS[numpy_function] = func
+        return func
+
+    return decorator
+
+
+@implements(np.concatenate)
+def concatenate(arrays):
+    """Join a sequence of 1-D Quantity arrays
+
+    Args:
+        arrays (Quantity): sequence of Quantity arrays
+    """
+    arrays[0].to("auto")
+    u0 = arrays[0].units
+    unitless_arrays = [arrays[0].v]
+    for array in arrays[1:]:
+        array.to("auto")
+        ux = array.units
+        # pylint: disable=protected-access
+        if not (u0 / ux).is_dimensionless:
+            raise ValueError("incompatible units")
+        unitless_arrays.append(array.value)
+    cat_array = np.concatenate(unitless_arrays)
+    return Quantity(cat_array, u0)
 
 
 # pylint: disable=all
