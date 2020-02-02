@@ -62,3 +62,23 @@ def test_concatenate_unitless():
     c = np.concatenate((a, b))
     results = c == np.arange(0, 6, 1)
     assert results.all()
+
+
+def test_scalar():
+    assert Quantity(1, "s")[0] == Quantity(1, "s")
+
+
+def test_to():
+    assert Quantity(0.001, "s", to_unit="ms") == Quantity(1.0, "ms")
+
+
+def test_repr():
+    assert Quantity(1, "s").__repr__() == "1.0 s"
+    assert Quantity(1, "1").__repr__() == "1.0"
+
+
+def test_array_function_not_implemented():
+    a = Quantity([1, 0], "s")
+    b = Quantity([1, 1], "s")
+    with raises(TypeError):
+        np.dot(a, b)

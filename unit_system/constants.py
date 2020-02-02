@@ -1,3 +1,0 @@
-"""constants"""
-
-QUANTITY_FUNCTIONS = {}

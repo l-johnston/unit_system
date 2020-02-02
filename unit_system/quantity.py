@@ -35,6 +35,9 @@ class Quantity(unyt_array):
         10.0 kV
     """
 
+    # pylint: disable=arguments-differ
+    # pylint: disable=unused-argument
+    # pylint: disable=super-init-not-called
     def __new__(cls, value, unit, to_unit="auto", **kwargs):
         obj = super().__new__(Quantity, value, unit, **kwargs)
         obj.to_unit = to_unit
@@ -157,10 +160,3 @@ def concatenate(arrays):
         unitless_arrays.append(array.value)
     cat_array = np.concatenate(unitless_arrays)
     return Quantity(cat_array, u0)
-
-
-# pylint: disable=all
-if __name__ == "__main__":
-    V = Quantity(1, "V")
-    x = 1 * V
-    print(x)

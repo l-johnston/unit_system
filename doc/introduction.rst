@@ -73,18 +73,6 @@ allows mixing systems in a single expression. For example:
 >>> 1.2*m + 3.6*ft
 unyt_quantity(2.29728, 'm')
 
-This encourages round-trips between systems and encourages continued use of
-non-SI systems. This package provides a ``convert`` function to
-convert a non-SI quantity into its SI equivalent. For example:
-
->>> from unit_system import convert, m
->>> l1 = 1.2*m
->>> l2 = convert(3.6, "ft")
->>> l1 + l2
-2.29728 m
-
-Here, the conversion is made explict and round trips are not allowed.
-
 Another benefit to ``unit_system`` is its integration with Matplotlib as
 described in :doc:`/usage`.
 
