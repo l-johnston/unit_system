@@ -1,5 +1,5 @@
 """Define commonly used units"""
-from unyt import unyt_quantity, define_unit
+from unyt import unyt_quantity, define_unit, Unit
 from unit_system import Quantity
 
 # pylint: disable=invalid-name
@@ -47,12 +47,13 @@ predefined_units = {
     "µJ": Quantity(1e-6, "J"),
     "mJ": Quantity(1e-3, "J"),
     "kJ": Quantity(1e3, "J"),
+    "degC": Unit("degC"),
 }
 
 define_unit("H", unyt_quantity(1, "V*s/A"), tex_repr=r"\rm{H}", prefixable=True)
 predefined_units["H"] = Quantity(1, "H")
-predefined_units["nH"] = Quantity(1e-9, "nH")
-predefined_units["µH"] = Quantity(1e-6, "µH")
-predefined_units["mH"] = Quantity(1e-3, "mH")
+predefined_units["nH"] = Quantity(1, "nH")
+predefined_units["µH"] = Quantity(1, "µH")
+predefined_units["mH"] = Quantity(1, "mH")
 
 globals().update(predefined_units)

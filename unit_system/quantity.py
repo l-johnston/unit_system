@@ -39,6 +39,8 @@ class Quantity(unyt_array):
     # pylint: disable=unused-argument
     # pylint: disable=super-init-not-called
     def __new__(cls, value, unit, to_unit="auto", **kwargs):
+        if isinstance(unit, str):
+            unit = unit.replace("°", "deg")
         obj = super().__new__(Quantity, value, unit, **kwargs)
         obj.to_unit = to_unit
         return obj
@@ -70,13 +72,18 @@ class Quantity(unyt_array):
         if unit == "auto":
             self.convert_to_base()
         else:
+            unit = unit.replace("°", "deg")
             self.convert_to_units(unit)
         return self
 
     def __repr__(self):
+        return self.__str__()
+
+    def __str__(self):
         if self.units.is_dimensionless:
             return str(self.v)
-        return super().__str__()
+        q_str = super().__str__()
+        return q_str.replace("deg", "°")
 
     def threshold(self, value, start=0):
         """Find fractional index of value in a 1D Quantity array

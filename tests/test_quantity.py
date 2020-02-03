@@ -82,3 +82,10 @@ def test_array_function_not_implemented():
     b = Quantity([1, 1], "s")
     with raises(TypeError):
         np.dot(a, b)
+
+
+def test_degree_symbol():
+    t = Quantity(23, "°C")
+    t.to("°C")
+    t_str = t.__str__()
+    assert t_str == "23.0 °C"
