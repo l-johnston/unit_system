@@ -85,7 +85,7 @@ def test_array_function_not_implemented():
 
 
 def test_degree_symbol():
-    t = Quantity(23, "°C")
+    t = Quantity(0, "°C")
     t.to("°C")
     t_str = t.__str__()
-    assert bytes(t_str.encode("utf8")) == b"23.0 \xc2\xb0C"
+    assert bytes(t_str.encode("utf8")) == b"0.0 \xc2\xb0C"
