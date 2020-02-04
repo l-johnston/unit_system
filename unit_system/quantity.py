@@ -1,6 +1,6 @@
 """Definition of Quantity as a subclass of Unyt's unyt_array"""
 import numpy as np
-from unyt import unyt_array, unyt_quantity
+from unyt import unyt_array, unyt_quantity, Unit
 
 QUANTITY_FUNCTIONS = {}
 
@@ -68,6 +68,8 @@ class Quantity(unyt_array):
         return result
 
     def to(self, unit):
+        if isinstance(unit, Unit):
+            return super().to(unit)
         self.to_unit = unit
         if unit == "auto":
             self.convert_to_base()
