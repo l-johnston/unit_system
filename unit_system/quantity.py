@@ -38,6 +38,7 @@ class Quantity(unyt_array):
     # pylint: disable=arguments-differ
     # pylint: disable=unused-argument
     # pylint: disable=super-init-not-called
+    # pylint: disable=signature-differs
     def __new__(cls, value, unit, to_unit="auto", **kwargs):
         if isinstance(unit, str):
             unit = unit.replace("°", "deg")
